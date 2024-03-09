@@ -6,14 +6,6 @@ export default {
   ],
   theme: {
     extend: {
-      backgroundColor: {
-        primary: '#F5F5F5',
-        secondary: '#FF9110'
-      },
-      colors: {
-        primary: '#F5F5F5',
-        secondary: '#FF9110'
-      },
     },
   },
   // eslint-disable-next-line no-undef
