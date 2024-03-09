@@ -1,16 +1,17 @@
+import { useState } from "react";
+import { v4 as uuid } from "uuid";
 import {
   FieldValues,
   SubmitHandler,
   UseFormRegister,
   useForm,
 } from "react-hook-form";
-import { dataTodo } from "../../../stub/data";
 import CustomButton from "../../commons/CustomButton";
 import CustomInput from "../../commons/CustomInput";
 import { Todo } from "../../../models/todo";
-import { useState } from "react";
 import ValidateError from "../../commons/ValidateError";
 import TodoTemplate from "./TodoTemplate";
+import { useTodos } from "../../../hooks/useTodos";
 
 const TodoComponent = () => {
   const [error, setError] = useState("");
@@ -20,11 +21,12 @@ const TodoComponent = () => {
     reset,
     formState: { errors },
   } = useForm<Pick<Todo, "title">>();
+  const { todos, setTodos } = useTodos();
 
   const onSubmit: SubmitHandler<Pick<Todo, "title">> = (data) => {
     setError("");
     if (data) {
-      dataTodo.push({ ...data, isCompleted: false });
+      setTodos([...todos, { ...data, isCompleted: false, id: uuid() }]);
       reset({
         title: "",
       });
@@ -34,7 +36,9 @@ const TodoComponent = () => {
   };
 
   const onClear = () => {
-    dataTodo.filter((task) => !task.isCompleted);
+    const data = todos.filter((task) => !task.isCompleted);
+    console.log(data, "data");
+    setTodos(data);
   };
   return (
     <section className="w-full min-h-screen px-14 max-w-xl">
@@ -67,7 +71,7 @@ const TodoComponent = () => {
         </CustomButton>
         <ValidateError error={error} />
       </form>
-      <TodoTemplate dataTodo={dataTodo} />
+      <TodoTemplate dataTodo={todos} />
     </section>
   );
 };
