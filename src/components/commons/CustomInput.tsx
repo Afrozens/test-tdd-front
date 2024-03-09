@@ -4,6 +4,7 @@ import type {
   RegisterOptions,
   UseFormRegister,
 } from "react-hook-form";
+import ValidateError from "./ValidateError";
 
 type AttributeProps = React.DetailedHTMLProps<
   React.InputHTMLAttributes<HTMLInputElement>,
@@ -13,7 +14,7 @@ type AttributeProps = React.DetailedHTMLProps<
 type Props = {
   id: string;
   label: string;
-  name?: string;
+  name: string;
   classAditional?: string;
   register?: UseFormRegister<FieldValues>;
   error?: string | undefined;
@@ -49,14 +50,13 @@ const CustomInput = ({
           required={isRequired}
           defaultValue={defaultValue}
           className="pr-4 custom-input"
+          aria-label={label}
           {...(register && register(name, rules))}
           {...props}
           name={name}
         />
       </div>
-      {error && (
-        <p className="mt-1 ml-1 text-xs text-red-500 self-start ">{error}</p>
-      )}
+      <ValidateError error={error} />
     </div>
   );
 };

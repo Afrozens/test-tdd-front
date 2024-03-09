@@ -2,7 +2,6 @@ import { cleanup, render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import Todo from "../components/general/todo/Todo";
 import { dataMock, taskMock } from "../__mocks__/method-todo.mock";
-import Task from "../components/general/todo/Task";
 
 describe("Todo", () => {
   afterEach(cleanup);
@@ -44,7 +43,6 @@ describe("Todo", () => {
 
     await waitFor(() => {
       expect(todoInput).toHaveValue("");
-      render(<Task task={taskMock} />);
       const titleTask = screen.queryByText(taskMock.title, {
         selector: "span",
       });

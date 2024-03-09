@@ -1,3 +1,16 @@
 @tailwind base;
 @tailwind components;
+@layer components {
+  .btn-primary {
+    @apply inline-flex cursor-pointer justify-center items-center flex-wrap text-center bg-gray-700 text-white hover:opacity-90 disabled:opacity-90 transition-all rounded-3xl font-medium h-8;
+  }
+
+  .label-primary {
+    @apply text-[11px] font-semibold text-gray-500 self-start ml-2 gap-2 justify-center flex items-center;
+  }
+
+  .custom-input {
+    @apply ring-1 ring-slate-300 border-0 border-gray-50 focus:border-0 focus:outline-none hover:ring-1 hover:ring-slate-400 hover:border-0 hover:outline-none block min-h-[auto] h-10 w-full rounded bg-gray-50 py-[0.32rem] leading-[2.15] outline-none transition-all duration-200 ease-linear focus:placeholder:opacity-100 focus:ring-1 focus:ring-slate-400 data-[te-input-state-active]:placeholder:opacity-100 motion-reduce:transition-none peer-focus:ml-0 pl-2;
+  }
+}
 @tailwind utilities;
