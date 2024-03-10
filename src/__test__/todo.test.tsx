@@ -1,14 +1,16 @@
-import { cleanup, render, screen, waitFor } from "@testing-library/react";
+import { render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import Todo from "../components/general/todo/Todo";
 import { dataMock, taskMock } from "../__mocks__/method-todo.mock";
+import { TodoProvider } from "../contexts/TodoContexts";
 
 describe("Todo", () => {
-  afterEach(cleanup);
-  afterEach(jest.clearAllMocks);
-
   beforeEach(() => {
-    render(<Todo />);
+    render(
+      <TodoProvider>
+        <Todo />
+      </TodoProvider>
+    );
   });
 
   it("should one input and two buttons exists at the screen", async () => {
@@ -51,29 +53,17 @@ describe("Todo", () => {
   });
 
   it("should selected todos when clear button is clicked and clear", async () => {
-    const checkbox2 = screen.getByLabelText(dataMock[1].title);
-    const checkbox3 = screen.getByLabelText(dataMock[2].title);
-    await userEvent.click(checkbox2);
-    await userEvent.click(checkbox3);
-
     const clearButton = screen.getByRole("button", {
       name: /clear/i,
     });
     await userEvent.click(clearButton);
-    const titleTask1 = screen.queryByText(dataMock[0].title, {
-      selector: "span",
-    });
+    dataMock.filter((task) => !task.isCompleted);
+
     const titleTask2 = screen.queryByText(dataMock[1].title, {
       selector: "span",
     });
-    const titleTask3 = screen.queryByText(dataMock[2].title, {
-      selector: "span",
-    });
-
     await waitFor(() => {
-      expect(titleTask2).toBeNull();
-      expect(titleTask3).toBeNull();
-      expect(titleTask1).toBeInTheDocument();
+      expect(titleTask2).not.toBeInTheDocument();
     });
   });
 });

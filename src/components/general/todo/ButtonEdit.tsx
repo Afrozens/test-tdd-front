@@ -1,8 +1,34 @@
+import CustomButton from "../../commons/CustomButton";
 
-const ButtonEdit = () => {
-  return (
-    <div>ButtonEdit</div>
-  )
+interface Props {
+  isEdit: boolean;
+  handleEdit: () => void;
+  id: string;
 }
 
-export default ButtonEdit
+const ButtonEdit = ({ isEdit, handleEdit, id }: Props) => {
+  return (
+    <>
+      {isEdit ? (
+        <CustomButton
+          onClick={handleEdit}
+          className="btn-primary w-20 bg-green-500"
+          type="button"
+        >
+          Save
+        </CustomButton>
+      ) : (
+        <CustomButton
+          aria-label={id}
+          onClick={handleEdit}
+          className="btn-primary w-20 bg-orange-400"
+          type="button"
+        >
+          Edit
+        </CustomButton>
+      )}
+    </>
+  );
+};
+
+export default ButtonEdit;

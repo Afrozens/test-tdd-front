@@ -1,11 +1,7 @@
 import { Todo } from "../models/todo";
 
 export const dataMock: Todo[] = [
-  {
-    title: "title-01",
-    isCompleted: false,
-    id: "string-uid1",
-  },
+  { title: "test-01", isCompleted: false, id: "string-uid" },
   {
     title: "title-02",
     isCompleted: true,
